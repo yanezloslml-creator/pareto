@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pareto de Defectos · Fábrica de Suéteres</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+  <header class="app-header">
+    <div class="brand">
+      <div class="logo">🧶</div>
+      <div>
+        <h1>Pareto de Defectos</h1>
+        <p>Control de calidad · Fábrica de suéteres</p>
+      </div>
+    </div>
+    <button id="btn-tema" class="icon-btn" title="Cambiar tema">🌙</button>
+  </header>
+
+  <main class="app-main">
+    <!-- Selector de proceso -->
+    <section class="panel proceso-panel">
+      <label for="select-proceso"><strong>Proceso a analizar:</strong></label>
+      <select id="select-proceso">
+        <option value="tejido">Tejido</option>
+        <option value="remallado">Remallado / Costura</option>
+        <option value="acabado">Acabado y planchado</option>
+        <option value="empaque">Empaque y etiquetado</option>
+        <option value="custom">Personalizado</option>
+      </select>
+      <button id="btn-ejemplo" class="btn secundario">Cargar defectos típicos</button>
+      <button id="btn-limpiar" class="btn secundario">Limpiar</button>
+    </section>
+
+    <!-- KPIs -->
+    <section class="kpis" id="kpis">
+      <div class="kpi"><span class="kpi-label">Total defectos</span><span class="kpi-value" id="kpi-total">0</span></div>
+      <div class="kpi"><span class="kpi-label">Tipos registrados</span><span class="kpi-value" id="kpi-tipos">0</span></div>
+      <div class="kpi"><span class="kpi-label">Causas vitales</span><span class="kpi-value" id="kpi-vitales">0</span></div>
+      <div class="kpi"><span class="kpi-label">% acumulado top 3</span><span class="kpi-value" id="kpi-top3">0%</span></div>
+    </section>
+
+    <div class="grid-2">
+      <!-- Entrada -->
+      <section class="panel">
+        <h2>1. Defectos detectados</h2>
+        <form id="form-defecto">
+          <input type="text" id="nombre" placeholder="Nombre del defecto" required />
+          <input type="number" id="frecuencia" placeholder="Frecuencia" min="1" required />
+          <button type="submit" class="btn">Agregar</button>
+        </form>
+        <div class="tabla-wrap">
+          <table id="tabla-entrada">
+            <thead><tr><th>Defecto</th><th>Frecuencia</th><th></th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Resultados -->
+      <section class="panel">
+        <h2>2. Análisis de Pareto</h2>
+        <button id="btn-calcular" class="btn full">Calcular Pareto</button>
+        <div id="resumen" class="resumen"></div>
+        <div class="chart-wrap"><canvas id="grafico"></canvas></div>
+      </section>
+    </div>
+
+    <!-- Tabla resultado -->
+    <section class="panel">
+      <h2>3. Detalle de causas</h2>
+      <div class="tabla-wrap">
+        <table id="tabla-resultado">
+          <thead>
+            <tr><th>Defecto</th><th>Frecuencia</th><th>% Individual</th><th>% Acumulado</th><th>Clasificación</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <button id="btn-imprimir" class="btn secundario">Imprimir / Guardar PDF</button>
+    </section>
+  </main>
+
+  <footer class="app-footer">
+    <p>Proyecto de Ingeniería Industrial · Análisis de Pareto aplicado a la industria textil</p>
+  </footer>
+
+  <div id="toast" class="toast"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
